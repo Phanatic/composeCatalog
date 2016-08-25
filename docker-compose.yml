@@ -1,0 +1,20 @@
+mysql:
+  container_name: mysql
+  restart: always
+  image: mysql:5.5
+  ports:
+    - "3306:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: "compose_root_password"
+    MYSQL_USER: "compose_user"
+    MYSQL_PASSWORD: "compose_password"
+    MYSQL_DATABASE: "composecatalog"
+composeCatalog:
+  container_name: composecatalog
+  restart: always
+  image: composecatalog:dev
+  links:
+    - mysql:mysql
+  ports:
+    - "3000:3000"
+  command: npm start
